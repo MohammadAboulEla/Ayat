@@ -1,10 +1,10 @@
-
 import 'package:ayat/utils/app_colors.dart';
 import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
 
 class AyaCard extends StatelessWidget {
   AyaCard({super.key, required this.ayaNum});
+
   final int ayaNum;
   final quran = Quran();
 
@@ -16,30 +16,34 @@ class AyaCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            decoration: BoxDecoration(
+                color: AppColors.g200,
+                borderRadius: BorderRadius.circular(15)),
+            padding: const EdgeInsets.all(10),
             width: screenWidth - 60,
-            margin: const EdgeInsets.only(top: 80, left: 10,right: 10),
-            child: Center(child: Text(quran.getAyaText(ayaNum),
+            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            child: Center(
+                child: Text(
+              quran.getAyaText(ayaNum),
               textAlign: TextAlign.justify,
               overflow: TextOverflow.visible,
-              style: TextStyle(color: AppColors.g700,
-                  height: 1.6,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "othman"),
-                  textDirection: TextDirection.rtl,
+              style: AppTextStyles.ayaStyle,
+              textDirection: TextDirection.rtl,
             )),
           ),
           Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: AppColors.g400,
+                borderRadius: BorderRadius.circular(15)),
             width: screenWidth - 60,
-            margin: const EdgeInsets.only(top: 80, left: 10,right: 10),
-            child: Center(child: Text(quran.getAyaTafseer(ayaNum),
-              textAlign: TextAlign.justify,
+            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            child: Center(
+                child: Text(
+              quran.getAyaTafseer(ayaNum),
+              textAlign: TextAlign.start,
               overflow: TextOverflow.visible,
-              style: TextStyle(color: AppColors.g700,
-                  height: 1.6,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "othman"),
+              style: AppTextStyles.tafseerStyle,
               textDirection: TextDirection.rtl,
             )),
           ),

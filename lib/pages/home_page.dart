@@ -40,41 +40,6 @@ class _HomePageState extends State<HomePage> {
         );
       },
     ),
-    ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        AyaCard(ayaNum: 15),
-        AyaCard(ayaNum: 155),
-        AyaCard(ayaNum: 200),
-        AyaCard(ayaNum: 1550),
-        AyaCard(ayaNum: 100),
-        AyaCard(ayaNum: 150),
-        AyaCard(ayaNum: 777),
-      ],
-    ),
-    CarouselView(
-        itemExtent: 300,
-        padding: EdgeInsets.all(20),
-        backgroundColor: AppColors.g400,
-        elevation: 3,
-        itemSnapping: true,
-        scrollDirection: Axis.horizontal,
-        children: [
-          AyaCard(ayaNum: 15),
-          AyaCard(ayaNum: 155),
-          AyaCard(ayaNum: 200),
-          AyaCard(ayaNum: 1550),
-          AyaCard(ayaNum: 100),
-          AyaCard(ayaNum: 150),
-          AyaCard(ayaNum: 777),
-        ]),
-    Center(
-      child: Text(
-        "content 2",
-        style: GoogleFonts.elMessiri(
-            fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.g700),
-      ),
-    ),
   ];
 
   @override
