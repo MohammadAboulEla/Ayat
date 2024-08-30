@@ -39,25 +39,35 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // title: Text("آيات", style: GoogleFonts.elMessiri(fontSize: 26
-          //     , fontWeight: FontWeight.bold, color: AppColors.g700),),
-          title: SearchBar(
-              hintText: "بحث عن آيه",
-              hintStyle: WidgetStatePropertyAll(GoogleFonts.elMessiri(fontSize: 22,)),
-              textStyle: WidgetStatePropertyAll(TextStyle()),
-              leading: const Icon(Icons.search),
-              backgroundColor: WidgetStatePropertyAll(AppColors.g400),
-              elevation: const WidgetStatePropertyAll(0),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-              )),
+          toolbarHeight: 65,
+          title: TextField(
+            textAlign : TextAlign. center,
+            textAlignVertical: TextAlignVertical.bottom,
+            decoration: InputDecoration(
+              hintText: "بحث عن آيه ",
+              hintStyle: GoogleFonts.elMessiri(fontSize: 22,color: AppColors.g700, fontWeight: FontWeight.bold),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Icon(Icons.search, size: 35,),
+              ),
+              filled: true,
+              fillColor: AppColors.g400,
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            style: GoogleFonts.elMessiri(fontSize: 22),
+
+          ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
+          // leadingWidth: 35,
           leading: Builder(builder: (context) {
             return IconButton(
               icon: Icon(
-                Icons.menu,
+                Icons.info,
+                size: 35,
                 color: AppColors.g700,
               ),
               onPressed: () {
