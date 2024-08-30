@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../widgets/aya_card.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -12,18 +15,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
   void navBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  final List<Widget> w = [
-    // Container(color: Colors.grey[400], margin: const EdgeInsets.all(5),),
-    // Container(color: Colors.grey[600], margin: const EdgeInsets.all(5),),
+  final List<Widget> tabsWidgets = [
+     CarouselView(itemExtent: 300,
+         padding: EdgeInsets.all(20),
+         backgroundColor: AppColors.g400,
+         elevation: 3,
+         itemSnapping: true,
+         scrollDirection: Axis.horizontal,
+         children: [
+           AyaCard(ayaNum: 15),
+           AyaCard(ayaNum: 155),
+           AyaCard(ayaNum: 200),
+           AyaCard(ayaNum: 1550),
+           AyaCard(ayaNum: 100),
+           AyaCard(ayaNum: 150),
+           AyaCard(ayaNum: 777),
+         ]),
 
-    Container(),
+
     Container(
       child: Center(
         child: Text(
@@ -37,6 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 65,
@@ -45,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               hintText: "بحث عن آيه ",
-              hintStyle: GoogleFonts.elMessiri(fontSize: 22,color: AppColors.g700, fontWeight: FontWeight.bold),
+              hintStyle: GoogleFonts.elMessiri(fontSize: 18,color: AppColors.g700, fontWeight: FontWeight.bold),
               prefixIcon: const Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Icon(Icons.search, size: 35,),
@@ -98,8 +114,6 @@ class _HomePageState extends State<HomePage> {
               ),
               GButton(icon: Icons.lock, text: "t2")
             ]),
-        body: SafeArea(
-          child: _selectedIndex == 0 ? w[0] : w[1],
-        ));
+        body: _selectedIndex == 0? tabsWidgets[0]:tabsWidgets[1]);
   }
 }

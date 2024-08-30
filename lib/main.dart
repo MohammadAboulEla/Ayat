@@ -1,9 +1,15 @@
 import 'package:ayat/pages/home_page.dart';
 import 'package:ayat/pages/intro_page.dart';
+import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future initServices () async {
+  await Quran.create();
+}
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await initServices();
   runApp(const MyApp());
 }
 
