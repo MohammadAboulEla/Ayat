@@ -19,8 +19,20 @@ class _HomePageState extends State<HomePage> {
   });}
 
   final List<Widget> w = [
-    Container(color: Colors.grey[400], margin: const EdgeInsets.all(5),),
-    Container(color: Colors.grey[600], margin: const EdgeInsets.all(5),),
+    // Container(color: Colors.grey[400], margin: const EdgeInsets.all(5),),
+    // Container(color: Colors.grey[600], margin: const EdgeInsets.all(5),),
+    Container(
+      child: Center(
+        child: Text("content 1", style: GoogleFonts.elMessiri(fontSize: 26
+            , fontWeight: FontWeight.bold, color: AppColors.g700),),
+      ),
+    ),
+    Container(
+      child: Center(
+        child: Text("content 2", style: GoogleFonts.elMessiri(fontSize: 26
+            , fontWeight: FontWeight.bold, color: AppColors.g700),),
+      ),
+    ),
   ];
 
   @override
@@ -33,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
       leading: Builder(
         builder: (context) {
-          return IconButton(icon: const Icon(Icons.menu, color: AppColors.g700,),
+          return IconButton(icon: Icon(Icons.menu, color: AppColors.g700,),
           onPressed: (){
             Scaffold.of(context).openDrawer();
           },
