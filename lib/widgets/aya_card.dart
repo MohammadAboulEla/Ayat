@@ -3,10 +3,11 @@ import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
 
 class AyaCard extends StatelessWidget {
-  AyaCard({super.key, required this.ayaNum});
-
+  AyaCard({super.key, required this.ayaNum, this.isSearch = false});
   final int ayaNum;
   final quran = Quran();
+  final bool isSearch;
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,33 @@ class AyaCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       width: screenWidth - 60,
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-      child: Center(
-          child: Text(
-        quran.getAyaText(ayaNum),
-        textAlign: TextAlign.justify,
-        overflow: TextOverflow.visible,
-        style: AppTextStyles.ayaStyle,
-        textDirection: TextDirection.rtl,
-      )),
+      child: Column(
+        children: [
+          isSearch? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Text("مفضلة",style: AppTextStyles.normalStyle,),
+              IconButton(onPressed: (){},
+                icon: const Icon(Icons.headphones),
+              ),
+              IconButton(onPressed: (){},
+                icon: const Icon(Icons.bookmark_add),
+              ),
+              IconButton(onPressed: (){},
+                icon: const Icon(Icons.favorite),
+              ),
+            ],
+          ):const SizedBox(width: 0,),
+          Center(
+            child: Text(
+          quran.getAyaText(ayaNum),
+          textAlign: TextAlign.justify,
+          overflow: TextOverflow.visible,
+          style: AppTextStyles.ayaStyle,
+          textDirection: TextDirection.rtl,
+        )),
+        ],
+      ),
     );}
 
   Widget _containerTafseer(screenWidth) {

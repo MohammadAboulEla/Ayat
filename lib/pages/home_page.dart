@@ -13,10 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
-  List<Aya> searchResults = [];
+  int _selectedIndex = 0;
+  List<Aya> _searchResults = [];
   String _userInput = "test";
-  final PageController _controller = PageController(viewportFraction: 0.8);
+  // final PageController _controllerAyati = PageController(viewportFraction: 0.8);
+  // final PageController _controllerSearch = PageController(viewportFraction: 0.8);
   final TextEditingController tc = TextEditingController();
 
   @override
@@ -58,7 +59,6 @@ class _HomePageState extends State<HomePage> {
                 ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
-          // leadingWidth: 35,
           leading: Builder(builder: (context) {
             return IconButton(
               icon: Icon(
@@ -98,28 +98,20 @@ class _HomePageState extends State<HomePage> {
         body: _selectedIndex == 0
             ? PageView.builder(
                 itemCount: 10,
-                controller: _controller,
+                // controller: _controllerAyati,
                 itemBuilder: (context, index) {
-                  return ListenableBuilder(
-                    listenable: _controller,
-                    builder: (context, child) {
-                      double factor = 1;
-                      if (_controller.position.hasContentDimensions) {
-                        factor = 1 - (_controller.page! - index).abs();
-                      }
-
-                      return AyaCard(ayaNum: index + 140);
-                    },
-                  );
+                  return AyaCard(ayaNum: index + 140);
                 },
               )
             : Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                        itemCount: searchResults.length,
+                    child: PageView.builder(
+                        // controller: _controllerSearch,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _searchResults.length,
                         itemBuilder: (_, i) {
-                          return AyaCard(ayaNum: searchResults[i].myId);
+                          return AyaCard(ayaNum: _searchResults[i].myId, isSearch:true,);
                         }),
                   )
                 ],
@@ -135,16 +127,15 @@ class _HomePageState extends State<HomePage> {
   void clean() {
     tc.clear();
     _userInput = "";
-    searchResults = [];
+    _searchResults = [];
     setState(() {});
   }
 
   void onSearch(val) {
     _userInput = val;
     if (_userInput != "") {
-      searchResults = Quran().searchForString(_userInput);
+      _searchResults = Quran().searchForString(_userInput);
       // FocusManager.instance.primaryFocus?.unfocus();
-      debugPrint("EEEEEE" + searchResults.length.toString());
       setState(() {});
     }
   }
