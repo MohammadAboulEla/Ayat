@@ -12,9 +12,9 @@ class IntroPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
         Expanded(child: Container(color: Colors.orange,)),
-        Expanded(child: Text("Welcome",)),
-        ElevatedButton(onPressed: (){}, child: Text("start")),
-        Expanded(child: SizedBox()),
+        const Expanded(child: Text("Welcome",)),
+        ElevatedButton(onPressed: (){}, child: const Text("start")),
+        const Expanded(child: SizedBox()),
       ],),
 
     );

@@ -1,4 +1,6 @@
+import 'package:ayat/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,20 +19,38 @@ class _HomePageState extends State<HomePage> {
   });}
 
   final List<Widget> w = [
-    Container(color: Colors.orange),
-    Container(color: Colors.red),
+    Container(color: Colors.grey[400], margin: const EdgeInsets.all(5),),
+    Container(color: Colors.grey[600], margin: const EdgeInsets.all(5),),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+        title: Text("آيات", style: GoogleFonts.elMessiri(fontSize: 26
+            , fontWeight: FontWeight.bold, color: AppColors.g700),),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+      leading: Builder(
+        builder: (context) {
+          return IconButton(icon: const Icon(Icons.menu, color: AppColors.g700,),
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          },
+          );
+        }
+      ),
+      ),
+      drawer: const Drawer(backgroundColor: Colors.black38,),
+      backgroundColor: AppColors.background,
       bottomNavigationBar: GNav(
-      color: Colors.grey[400],
-      activeColor: Colors.grey.shade700,
+      color: AppColors.g400,
+      activeColor: AppColors.g700,
       tabActiveBorder: Border.all(color: Colors.white),
-      tabBackgroundColor: Colors.grey.shade100,
+      tabBackgroundColor: AppColors.g100,
       tabBorderRadius: 25,
+      curve: Curves.easeInCubic,
+      padding: const EdgeInsets.all(15),
       tabMargin: const EdgeInsets.all(5),
       onTabChange: navBar,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         GButton(icon: Icons.home, text: "t1",),
         GButton(icon: Icons.lock, text: "t2")
       ]),
-      body: Center(
+      body: SafeArea(
         child:_selectedIndex == 0 ? w[0]:w[1],)
     );
   }
