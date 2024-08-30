@@ -2,8 +2,11 @@ import 'package:ayat/pages/home_page.dart';
 import 'package:ayat/pages/intro_page.dart';
 import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 Future initServices () async {
+  await Hive.initFlutter();
+  await Hive.openBox('testBox');
   await Quran.create();
 }
 
