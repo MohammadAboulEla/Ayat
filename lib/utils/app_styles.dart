@@ -11,6 +11,11 @@ class AppColors{
   static final Color g800 = Colors.grey[800]!;
 }
 class AppTextStyles{
+  static final TextStyle titleStyle = TextStyle(color: AppColors.g800,
+      height: 1.6,
+      fontSize: 28,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.gulzar().fontFamily);
   static final TextStyle ayaStyle =  TextStyle(color: AppColors.g800,
       height: 1.6,
       fontSize: 28,
@@ -21,4 +26,8 @@ class AppTextStyles{
       fontSize: 18,
       fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.rubik().fontFamily);
+  static final TextStyle normalStyle = GoogleFonts.rubik(
+      fontSize: 18,
+      color: AppColors.g700,
+      fontWeight: FontWeight.normal);
 }
