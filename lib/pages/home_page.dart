@@ -8,44 +8,71 @@ import '../widgets/aya_card.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  final PageController _controller = PageController(viewportFraction: 0.8);
+
   void navBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  final List<Widget> tabsWidgets = [
-     CarouselView(itemExtent: 300,
-         padding: EdgeInsets.all(20),
-         backgroundColor: AppColors.g400,
-         elevation: 3,
-         itemSnapping: true,
-         scrollDirection: Axis.horizontal,
-         children: [
-           AyaCard(ayaNum: 15),
-           AyaCard(ayaNum: 155),
-           AyaCard(ayaNum: 200),
-           AyaCard(ayaNum: 1550),
-           AyaCard(ayaNum: 100),
-           AyaCard(ayaNum: 150),
-           AyaCard(ayaNum: 777),
-         ]),
+  late List<Widget> tabsWidgets = [
+    PageView.builder(
+      itemCount: 10,
+      controller: _controller,
+      itemBuilder: (context, index) {
+        return ListenableBuilder(
+          listenable: _controller,
+          builder: (context, child) {
+            double factor = 1;
+            if (_controller.position.hasContentDimensions) {
+              factor = 1 - (_controller.page! - index).abs();
+            }
 
-
-    Container(
-      child: Center(
-        child: Text(
-          "content 2",
-          style: GoogleFonts.elMessiri(
-              fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.g700),
-        ),
+            return AyaCard(ayaNum: index+140);
+          },
+        );
+      },
+    ),
+    ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        AyaCard(ayaNum: 15),
+        AyaCard(ayaNum: 155),
+        AyaCard(ayaNum: 200),
+        AyaCard(ayaNum: 1550),
+        AyaCard(ayaNum: 100),
+        AyaCard(ayaNum: 150),
+        AyaCard(ayaNum: 777),
+      ],
+    ),
+    CarouselView(
+        itemExtent: 300,
+        padding: EdgeInsets.all(20),
+        backgroundColor: AppColors.g400,
+        elevation: 3,
+        itemSnapping: true,
+        scrollDirection: Axis.horizontal,
+        children: [
+          AyaCard(ayaNum: 15),
+          AyaCard(ayaNum: 155),
+          AyaCard(ayaNum: 200),
+          AyaCard(ayaNum: 1550),
+          AyaCard(ayaNum: 100),
+          AyaCard(ayaNum: 150),
+          AyaCard(ayaNum: 777),
+        ]),
+    Center(
+      child: Text(
+        "content 2",
+        style: GoogleFonts.elMessiri(
+            fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.g700),
       ),
     ),
   ];
@@ -57,14 +84,20 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           toolbarHeight: 65,
           title: TextField(
-            textAlign : TextAlign. center,
+            textAlign: TextAlign.center,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               hintText: "بحث عن آيه ",
-              hintStyle: GoogleFonts.elMessiri(fontSize: 18,color: AppColors.g700, fontWeight: FontWeight.bold),
+              hintStyle: GoogleFonts.elMessiri(
+                  fontSize: 18,
+                  color: AppColors.g700,
+                  fontWeight: FontWeight.bold),
               prefixIcon: const Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Icon(Icons.search, size: 35,),
+                child: Icon(
+                  Icons.search,
+                  size: 35,
+                ),
               ),
               filled: true,
               fillColor: AppColors.g400,
@@ -74,7 +107,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             style: GoogleFonts.elMessiri(fontSize: 22),
-
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
@@ -114,6 +146,6 @@ class _HomePageState extends State<HomePage> {
               ),
               GButton(icon: Icons.lock, text: "t2")
             ]),
-        body: _selectedIndex == 0? tabsWidgets[0]:tabsWidgets[1]);
+        body: _selectedIndex == 0 ? tabsWidgets[0] : tabsWidgets[1]);
   }
 }

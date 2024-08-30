@@ -7,3 +7,11 @@ class AppColors{
   static final Color g400 = Colors.grey[400]!;
   static final Color g700 = Colors.grey[700]!;
 }
+class AppTextStyles{
+  static final TextStyle ayaStyle =  TextStyle(color: AppColors.g700,
+      height: 1.6,
+      fontSize: 28,
+      fontWeight: FontWeight.bold,
+      fontFamily: "othman");
+
+}

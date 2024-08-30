@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:ayat/utils/app_colors.dart';
 import 'package:ayat/utils/quran_class.dart';
@@ -13,6 +12,7 @@ class AyaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Column(
         children: [
           Container(
@@ -32,7 +32,7 @@ class AyaCard extends StatelessWidget {
           Container(
             width: screenWidth - 60,
             margin: const EdgeInsets.only(top: 80, left: 10,right: 10),
-            child: Center(child: Text(quran.getAyaText(ayaNum),
+            child: Center(child: Text(quran.getAyaTafseer(ayaNum),
               textAlign: TextAlign.justify,
               overflow: TextOverflow.visible,
               style: TextStyle(color: AppColors.g700,
