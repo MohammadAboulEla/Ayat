@@ -16,8 +16,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Aya> _searchResults = [];
   String _userInput = "test";
-  // final PageController _controllerAyati = PageController(viewportFraction: 0.8);
-  // final PageController _controllerSearch = PageController(viewportFraction: 0.8);
+  final PageController _controllerAyati = PageController(viewportFraction: 0.8);
+  final PageController _controllerSearch = PageController(viewportFraction: 0.8);
   final TextEditingController tc = TextEditingController();
 
   @override
@@ -97,21 +97,30 @@ class _HomePageState extends State<HomePage> {
             ]),
         body: _selectedIndex == 0
             ? PageView.builder(
-                itemCount: 10,
-                // controller: _controllerAyati,
-                itemBuilder: (context, index) {
-                  return AyaCard(ayaNum: index + 140);
-                },
-              )
+          itemCount: 10,
+          controller: _controllerAyati,
+          itemBuilder: (context, index) {
+            return ListenableBuilder(
+              listenable: _controllerAyati,
+              builder: (context, child) {
+                return AyaCard(ayaNum: index + 140);
+              },
+            );
+          },
+        )
             : Column(
                 children: [
                   Expanded(
                     child: PageView.builder(
-                        // controller: _controllerSearch,
+                        controller: _controllerSearch,
                         scrollDirection: Axis.horizontal,
                         itemCount: _searchResults.length,
                         itemBuilder: (_, i) {
-                          return AyaCard(ayaNum: _searchResults[i].myId, isSearch:true,);
+                          return ListenableBuilder(
+                          listenable: _controllerSearch,
+                          builder: (BuildContext context, Widget? child) {
+                            return AyaCard(ayaNum: _searchResults[i].myId, isSearch:true,);
+                          },);
                         }),
                   )
                 ],
