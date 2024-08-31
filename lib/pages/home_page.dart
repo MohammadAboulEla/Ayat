@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
                 )
               : TextField(
                   onSubmitted: onSearch,
+                  onTap: clean,
                   controller: tc,
                   textAlign: TextAlign.center,
                   textAlignVertical: TextAlignVertical.center,
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           leading: Builder(builder: (context) {
             return IconButton(
               icon: Icon(
-                Icons.info,
+                Icons.home,
                 size: 28,
                 color: AppColors.g700,
               ),
@@ -119,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                           return ListenableBuilder(
                           listenable: _controllerSearch,
                           builder: (BuildContext context, Widget? child) {
-                            return AyaCard(ayaNum: _searchResults[i].myId, isSearch:true,);
+                            return AyaCard(ayaNum: _searchResults[i].myId, addButtons:true,);
                           },);
                         }),
                   )

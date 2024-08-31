@@ -3,10 +3,10 @@ import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
 
 class AyaCard extends StatelessWidget {
-  AyaCard({super.key, required this.ayaNum, this.isSearch = false});
+  AyaCard({super.key, required this.ayaNum, this.addButtons = false});
   final int ayaNum;
   final quran = Quran();
-  final bool isSearch;
+  final bool addButtons;
 
 
   @override
@@ -29,7 +29,7 @@ class AyaCard extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
         children: [
-          isSearch? Row(
+          addButtons? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Text("مفضلة",style: AppTextStyles.normalStyle,),
@@ -37,10 +37,13 @@ class AyaCard extends StatelessWidget {
                 icon: const Icon(Icons.headphones),
               ),
               IconButton(onPressed: (){},
+                icon: const Icon(Icons.favorite),
+              ),
+              IconButton(onPressed: (){},
                 icon: const Icon(Icons.bookmark_add),
               ),
               IconButton(onPressed: (){},
-                icon: const Icon(Icons.favorite),
+                icon: const Icon(Icons.chrome_reader_mode_rounded),
               ),
             ],
           ):const SizedBox(width: 0,),
