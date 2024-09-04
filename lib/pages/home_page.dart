@@ -1,12 +1,14 @@
 import 'package:ayat/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hive/hive.dart';
 
 import '../utils/quran_class.dart';
 import '../widgets/aya_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.box});
+  final Box<dynamic> box;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,15 +18,18 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Aya> _searchResults = [];
   String _userInput = "test";
-  final PageController _controllerAyati = PageController(viewportFraction: 0.8);
-  final PageController _controllerSearch = PageController(viewportFraction: 0.8);
+  final PageController _controllerAyati = PageController(viewportFraction: 0.80);
+  final PageController _controllerSearch = PageController(viewportFraction: 0.80);
   final TextEditingController tc = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.box.get("myAyas") == null){
+      widget.box.put("myAyas", []);
+    }
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 65,
+          toolbarHeight: 85,
           title: _selectedIndex == 0
               ? Text(
                   "آياتي",
@@ -98,13 +103,21 @@ class _HomePageState extends State<HomePage> {
             ]),
         body: _selectedIndex == 0
             ? PageView.builder(
-          itemCount: 10,
+          itemCount: widget.box.get("myAyas").length,
           controller: _controllerAyati,
           itemBuilder: (context, index) {
             return ListenableBuilder(
               listenable: _controllerAyati,
               builder: (context, child) {
-                return AyaCard(ayaNum: index + 140);
+                return AyaCard(ayaNum: widget.box.get("myAyas")[index],
+                  ayaRemoved: (){
+                    var ayaNum = widget.box.get("myAyas")[index];
+                      var array = widget.box.get("myAyas");
+                      array.remove(ayaNum);
+                      widget.box.put("myAyas",array);
+                      debugPrint("$ayaNum removed");
+                      setState(() {});
+                    });
               },
             );
           },
@@ -120,7 +133,15 @@ class _HomePageState extends State<HomePage> {
                           return ListenableBuilder(
                           listenable: _controllerSearch,
                           builder: (BuildContext context, Widget? child) {
-                            return AyaCard(ayaNum: _searchResults[i].myId, addButtons:true,);
+                            return AyaCard(ayaNum: _searchResults[i].myId, searchMode:true,
+                                ayaAdded: (){
+                                var ayaNum = _searchResults[i].myId;
+                                var array = widget.box.get("myAyas");
+                                array.add(ayaNum);
+                                widget.box.put("myAyas",array);
+                                debugPrint("$ayaNum added");
+                              },
+                            );
                           },);
                         }),
                   )
@@ -149,4 +170,19 @@ class _HomePageState extends State<HomePage> {
       setState(() {});
     }
   }
+
+  // void ayaRemoved(aya){
+  //   var array = widget.box.get("myAyas");
+  //   array.remove(aya.myId);
+  //   widget.box.put("myAyas",array);
+  //   debugPrint("${aya.myId} removed");
+  //   setState(() {});
+  // }
+  // void ayaAdded(){
+  //   var array = widget.box.get("myAyas");
+  //   array.add(aya.myId);
+  //   widget.box.put("myAyas",array);
+  //   debugPrint("${aya.myId} added");
+  // }
+
 }

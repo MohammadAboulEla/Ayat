@@ -13,17 +13,17 @@ class AppColors{
 class AppTextStyles{
   static final TextStyle titleStyle = TextStyle(color: AppColors.g800,
       height: 1.6,
-      fontSize: 28,
+      fontSize: 25,
       fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.gulzar().fontFamily);
   static final TextStyle ayaStyle =  TextStyle(color: AppColors.g800,
       height: 1.6,
-      fontSize: 28,
+      fontSize: 32,
       fontWeight: FontWeight.bold,
       fontFamily: "othman");
   static final TextStyle tafseerStyle = TextStyle(color: AppColors.g800,
       height: 1.6,
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.rubik().fontFamily);
   static final TextStyle normalStyle = GoogleFonts.rubik(

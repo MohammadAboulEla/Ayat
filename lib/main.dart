@@ -3,22 +3,26 @@ import 'package:ayat/pages/intro_page.dart';
 import 'package:ayat/utils/quran_class.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 Future initServices () async {
   await Hive.initFlutter();
-  await Hive.openBox('testBox');
+  await Hive.openBox('settings');
   await Quran.create();
+  //TODO: Make a button to toggle this
+  WakelockPlus.enable();
 }
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
-  runApp(const MyApp());
+  Box<dynamic> box = await Hive.openBox('settings');
+  runApp(MyApp(box: box,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.box});
+  final Box<dynamic> box;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -44,10 +48,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: HomePage(box: box,),
       routes: {
         '/intro': (context) => const IntroPage(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => HomePage(box: box),
       },
     );
   }
