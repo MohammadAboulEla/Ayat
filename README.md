@@ -1,16 +1,15 @@
 # ayat
+A simple Flutter app to collect, organize, and quickly access your favorite ayat in one place.
+I am using my own offline api to fetch the ayat data.
 
-A new Flutter project.
+### Features
+- Mark and organize your favorite ayat for quick access
+- Search for ayat
+- using my own offline api to fetch the ayat data.
 
-## Getting Started
+### Example Images
 
-This project is a starting point for a Flutter application.
+![Example 1](examples/Screenshot1.png)
+![Example 2](examples/Screenshot2.png)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

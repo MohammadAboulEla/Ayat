@@ -2,7 +2,6 @@ import 'package:ayat/utils/app_styles.dart';
 import 'package:ayat/utils/quran_class.dart';
 import 'package:ayat/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import '../utils/global_functions.dart';
 
 class AyaCard extends StatelessWidget {
   AyaCard({
@@ -37,7 +36,7 @@ class AyaCard extends StatelessWidget {
 
   Widget _containerAya(screenWidth) {
     Aya aya = quran.getAyaByIdHeavy(ayaNum);
-    String suraAndNum = "${aya.mySuraName}-${extractLastNumber(aya.myText)}";
+    // String suraAndNum = "${aya.mySuraName}-${extractLastNumber(aya.myText)}";
     String suraName = "${aya.mySuraName}";
     return Container(
       padding: const EdgeInsets.only(bottom: 10, top: 0),
