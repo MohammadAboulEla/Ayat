@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-class AppColors{
+class AppColors {
   // static const Color white = Colors.white;
   static final Color background = Colors.grey[300]!;
   static final Color g100 = Colors.grey[100]!;
@@ -11,26 +10,32 @@ class AppColors{
   static final Color g700 = Colors.grey[700]!;
   static final Color g800 = Colors.grey[800]!;
 }
-class AppTextStyles{
-  static final TextStyle titleStyle = TextStyle(color: AppColors.g800,
-      height: 1.6,
-      fontSize: 25,
-      fontWeight: FontWeight.bold,
-      fontFamily: GoogleFonts.gulzar().fontFamily);
-  static final TextStyle ayaStyle =  TextStyle(color: AppColors.g800,
-      height: 1.6,
-      fontSize: 38,
-      fontWeight: FontWeight.w900,
-      fontFamily: "othman");
-  static final TextStyle tafseerStyle = TextStyle(color: AppColors.g800,
-      height: 1.6,
-      fontSize: 19,
-      fontWeight: FontWeight.w900,
-      fontFamily: GoogleFonts.rubik().fontFamily
+
+class AppTextStyles {
+  static final TextStyle titleStyle = TextStyle(
+    color: AppColors.g800,
+    height: 1.6,
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    fontFamily: GoogleFonts.gulzar().fontFamily,
+  );
+  static final TextStyle ayaStyle = TextStyle(
+    color: AppColors.g800,
+    height: 1.6,
+    fontSize: 38,
+    fontWeight: FontWeight.w900,
+    fontFamily: "othman",
+  );
+  static final TextStyle tafseerStyle = TextStyle(
+    color: AppColors.g800,
+    height: 1.6,
+    fontSize: 19,
+    fontWeight: FontWeight.w900,
+    fontFamily: GoogleFonts.rubik().fontFamily,
   );
   static final TextStyle normalStyle = GoogleFonts.rubik(
-      fontSize: 18,
-      color: AppColors.g700,
-      fontWeight: FontWeight.normal);
-
+    fontSize: 18,
+    color: AppColors.g700,
+    fontWeight: FontWeight.normal,
+  );
 }

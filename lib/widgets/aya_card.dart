@@ -65,7 +65,7 @@ class AyaCard extends StatelessWidget {
                         child: const Icon(Icons.double_arrow_rounded),
                       ),
                     ),
-                    SizedBox(width: screenWidth/6,),
+                    SizedBox(width: screenWidth / 6),
                     Builder(
                       builder: (context) {
                         return CustomButton(
@@ -74,7 +74,7 @@ class AyaCard extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(width: screenWidth/6,),
+                    SizedBox(width: screenWidth / 6),
                     IconButton(
                       onPressed: prevAya,
                       icon: const Icon(Icons.double_arrow_rounded),

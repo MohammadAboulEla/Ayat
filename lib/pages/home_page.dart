@@ -19,9 +19,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Aya> _searchResults = [];
   String _userInput = "test";
-  final PageController _controllerAyati = PageController(
-    viewportFraction: 1.0,
-  );
+  final PageController _controllerAyati = PageController(viewportFraction: 1.0);
   final PageController _controllerSearch = PageController(
     viewportFraction: 1.0,
   );
@@ -30,9 +28,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.background,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(systemNavigationBarColor: AppColors.background),
+    );
     if (box.get("myAyas") == null) {
       box.put("myAyas", []);
     }
@@ -133,10 +131,10 @@ class _HomePageState extends State<HomePage> {
                         builder: (BuildContext context, Widget? child) {
                           return AyaCard(
                             ayaNum: _searchResults[index].myId,
-                            nextAya: (){
+                            nextAya: () {
                               replaceWithNextAya(index);
                             },
-                            prevAya: (){
+                            prevAya: () {
                               replaceWithPrevAya(index);
                             },
                             searchMode: true,
@@ -175,7 +173,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void replaceWithNextAya (currentAyaNum){
+  void replaceWithNextAya(currentAyaNum) {
     final int nextAyaNum = _searchResults[currentAyaNum].myId + 1;
     final Aya nextAya = Quran().getAyaByIdHeavy(nextAyaNum);
     setState(() {
@@ -184,7 +182,7 @@ class _HomePageState extends State<HomePage> {
     debugPrint("next is $nextAyaNum");
   }
 
-  void replaceWithPrevAya (currentAyaNum){
+  void replaceWithPrevAya(currentAyaNum) {
     final int nextAyaNum = _searchResults[currentAyaNum].myId - 1;
     final Aya nextAya = Quran().getAyaByIdHeavy(nextAyaNum);
     setState(() {
