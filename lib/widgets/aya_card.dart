@@ -28,9 +28,7 @@ class AyaCard extends StatelessWidget {
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: [_containerAya(screenWidth), _containerTafseer(screenWidth)],
-      ),
+      child: Column(children: [_containerAya(screenWidth), _containerTafseer(screenWidth)]),
     );
   }
 
@@ -44,20 +42,15 @@ class AyaCard extends StatelessWidget {
         color: AppColors.background,
         borderRadius: BorderRadius.circular(15),
       ),
-      width: screenWidth - 60,
-      margin: const EdgeInsets.only(top: 0, left: 10, right: 10),
+      width: screenWidth - 20,
+      // margin: const EdgeInsets.only(top: 0, left: 15, right: 10),
       child: Column(
         children: [
           searchMode
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // IconButton(onPressed: (){},
-                    //   icon: const Icon(Icons.headphones),
-                    // ),
-                    // IconButton(onPressed: (){},
-                    //   icon: const Icon(Icons.favorite),
-                    // ),
                     IconButton(
                       onPressed: nextAya,
                       icon: Transform.scale(
@@ -65,50 +58,40 @@ class AyaCard extends StatelessWidget {
                         child: const Icon(Icons.double_arrow_rounded),
                       ),
                     ),
-                    SizedBox(width: screenWidth / 6),
                     Builder(
                       builder: (context) {
-                        return CustomButton(
-                          onPressed: ayaToggled,
-                          ayaNum: ayaNum,
-                        );
+                        return CustomButton(onPressed: ayaToggled, ayaNum: ayaNum);
                       },
                     ),
-                    SizedBox(width: screenWidth / 6),
-                    IconButton(
-                      onPressed: prevAya,
-                      icon: const Icon(Icons.double_arrow_rounded),
-                    ),
-                    // IconButton(onPressed: (){},
-                    //   icon: const Icon(Icons.chrome_reader_mode_rounded),
-                    // ),
+                    // IconButton(onPressed: () {}, icon: const Icon(Icons.headphones)),
+                    // IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+                    IconButton(onPressed: prevAya, icon: const Icon(Icons.double_arrow_rounded)),
                   ],
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: ayaToggled,
-                      icon: const Icon(Icons.bookmark_remove),
-                    ),
+                    IconButton(onPressed: ayaToggled, icon: const Icon(Icons.bookmark_remove)),
                   ],
                 ),
-          RichText(
-            textAlign: TextAlign.center,
-            textDirection: TextDirection.rtl,
-            overflow: TextOverflow.visible,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: aya.myText,
-                  style: AppTextStyles.ayaStyle, // Specific style for this span
-                ),
-                TextSpan(
-                  text: "  ($suraName)",
-                  style: AppTextStyles
-                      .tafseerStyle, // Different style for this span
-                ),
-              ],
+          Container(
+            width: screenWidth - 60,
+            child: RichText(
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
+              overflow: TextOverflow.visible,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: aya.myText,
+                    style: AppTextStyles.ayaStyle, // Specific style for this span
+                  ),
+                  TextSpan(
+                    text: "  ($suraName)",
+                    style: AppTextStyles.tafseerStyle, // Different style for this span
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -119,10 +102,7 @@ class AyaCard extends StatelessWidget {
   Widget _containerTafseer(screenWidth) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.g400,
-        borderRadius: BorderRadius.circular(15),
-      ),
+      decoration: BoxDecoration(color: AppColors.g400, borderRadius: BorderRadius.circular(15)),
       width: screenWidth - 60,
       margin: const EdgeInsets.only(top: 0, left: 10, right: 10),
       child: Column(

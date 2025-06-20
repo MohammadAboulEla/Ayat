@@ -1,12 +1,14 @@
 import 'package:ayat/utils/app_styles.dart';
 import 'package:ayat/utils/global_functions.dart';
 import 'package:ayat/utils/settings.dart';
+import 'package:ayat/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive/hive.dart';
+
 import '../utils/quran_class.dart';
 import '../widgets/aya_card.dart';
-import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,28 +18,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedNavIndex = 0;
   List<Aya> _searchResults = [];
   String _userInput = "test";
   final PageController _controllerAyati = PageController(viewportFraction: 1.0);
-  final PageController _controllerSearch = PageController(
-    viewportFraction: 1.0,
-  );
+  final PageController _controllerSearch = PageController(viewportFraction: 1.0);
   final TextEditingController tc = TextEditingController();
   final Box<dynamic> box = SettingsBox.instance;
 
   @override
   Widget build(BuildContext context) {
+    // set nav bar color
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(systemNavigationBarColor: AppColors.background),
     );
-    if (box.get("myAyas") == null) {
-      box.put("myAyas", []);
-    }
+    // if (box.get("myAyas") == null) {
+    //   box.put("myAyas", <int>[]);
+    // }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 85,
-        title: _selectedIndex == 0
+        title: _selectedNavIndex == 0
             ? Text("آياتي", style: AppTextStyles.titleStyle)
             : TextField(
                 onSubmitted: onSearch,
@@ -64,27 +65,24 @@ class _HomePageState extends State<HomePage> {
               ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        // leadingWidth: 60,
-        // leading: Builder(builder: (context) {
-        //   return IconButton(
-        //     padding: EdgeInsets.only(left: 0),
-        //     icon: Icon(
-        //       Icons.home,
-        //       size: 28,
-        //       color: AppColors.g700,
-        //     ),
-        //     onPressed: () {
-        //       Scaffold.of(context).openDrawer();
-        //     },
-        //   );
-        // }),
+        leadingWidth: 60,
+        leading: Builder(
+          builder: (context) {
+            // We use a Builder to get the context of the Scaffold
+            return IconButton(
+              padding: EdgeInsets.only(left: 0),
+              icon: Icon(Icons.home, size: 28, color: AppColors.g700),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
       ),
-      // drawer: const Drawer(
-      //   backgroundColor: Colors.black38,
-      // ),
+      drawer: CustomDrawer(),
       backgroundColor: AppColors.background,
       bottomNavigationBar: GNav(
-        selectedIndex: _selectedIndex,
+        selectedIndex: _selectedNavIndex,
         color: AppColors.g400,
         activeColor: AppColors.g700,
         tabActiveBorder: Border.all(color: Colors.white),
@@ -100,7 +98,7 @@ class _HomePageState extends State<HomePage> {
           GButton(icon: Icons.search, text: "بحث"),
         ],
       ),
-      body: _selectedIndex == 0
+      body: _selectedNavIndex == 0
           ? PageView.builder(
               itemCount: box.get("myAyas").length,
               controller: _controllerAyati,
@@ -154,7 +152,7 @@ class _HomePageState extends State<HomePage> {
 
   void navBar(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedNavIndex = index;
     });
   }
 
@@ -192,26 +190,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   void ayaRemoved(index) {
+    var array = box.get("myAyas", defaultValue: <int>[]);
     var ayaNum = box.get("myAyas")[index];
-    var array = box.get("myAyas");
-    array.remove(ayaNum);
-    box.put("myAyas", array);
-    const msg = "تم الحذف";
-    showToast(context, msg);
-    setState(() {});
+    if (!array.contains(ayaNum)) {
+      debugPrint("ayaNum is null, cannot remove");
+      return;
+    }
+    setState(() {
+      array.remove(ayaNum);
+      box.put("myAyas", array);
+      const msg = "تم الحذف";
+      showToast(context, msg);
+    });
   }
 
   void ayaToggled(int index) {
     var ayaNum = _searchResults[index].myId;
-    var array = box.get("myAyas", defaultValue: <dynamic>[]);
+    var array = box.get("myAyas", defaultValue: <int>[]);
     if (!array.contains(ayaNum)) {
-      array.add(ayaNum);
-      box.put("myAyas", array);
-      debugPrint("$ayaNum added");
-      const msg = "تمت الإضافة";
-      showToast(context, msg);
+      setState(() {
+        array.add(ayaNum);
+        box.put("myAyas", array);
+        debugPrint("$ayaNum added");
+        const msg = "تمت الإضافة";
+        showToast(context, msg);
+      });
     } else {
-      ayaRemoved(index);
+      setState(() {
+        array.remove(ayaNum);
+        box.put("myAyas", array);
+        const msg = "تم الحذف";
+        showToast(context, msg);
+      });
     }
   }
 }

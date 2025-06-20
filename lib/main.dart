@@ -4,8 +4,7 @@ import 'package:ayat/utils/quran_class.dart';
 import 'package:ayat/utils/settings.dart';
 import 'package:flutter/material.dart';
 
-
-Future initServices () async {
+Future initServices() async {
   await SettingsBox.create();
   await Quran.create();
 }
@@ -18,7 +17,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,4 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
