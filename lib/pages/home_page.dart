@@ -28,13 +28,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("HomePage build called");
     // set nav bar color
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(systemNavigationBarColor: AppColors.background),
     );
-    // if (box.get("myAyas") == null) {
-    //   box.put("myAyas", <int>[]);
-    // }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 85,
@@ -42,18 +40,31 @@ class _HomePageState extends State<HomePage> {
             ? Text("آياتي", style: AppTextStyles.titleStyle)
             : TextField(
                 onSubmitted: onSearch,
-                onTap: clean,
+                textInputAction: TextInputAction.search,
                 controller: tc,
                 textAlign: TextAlign.center,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   hintText: "بحث عن آيه",
                   hintStyle: AppTextStyles.normalStyle,
-                  prefixIcon: const Padding(
+                  prefixIcon: Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Icon(Icons.search, size: 35),
+                    child: IconButton(
+                      onPressed: () {
+                        onSearch(tc.text);
+                      },
+                      icon: Icon(Icons.search),
+                    ),
                   ),
-                  suffixIcon: const Padding(padding: EdgeInsets.only(left: 10)),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: IconButton(
+                      onPressed: () {
+                        tc.text = "";
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ),
                   filled: true,
                   fillColor: AppColors.g400,
                   border: const OutlineInputBorder(
@@ -66,18 +77,28 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         leadingWidth: 60,
-        leading: Builder(
-          builder: (context) {
-            // We use a Builder to get the context of the Scaffold
-            return IconButton(
-              padding: EdgeInsets.only(left: 0),
-              icon: Icon(Icons.home, size: 28, color: AppColors.g700),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
+        leading: _selectedNavIndex == 0
+            ? Builder(
+                builder: (context) {
+                  // We use a Builder to get the context of the Scaffold
+                  return IconButton(
+                    padding: EdgeInsets.only(left: 0),
+                    icon: Icon(Icons.home, size: 28, color: AppColors.g700),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  );
+                },
+              )
+            : BackButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedNavIndex = 0;
+                    clean();
+                  });
+                },
+              ),
+        // actions: [CustomInfo(a: _controllerAyati.page?.round() ?? 0, b: box.get("myAyas").length)],
       ),
       drawer: CustomDrawer(),
       backgroundColor: AppColors.background,
@@ -100,6 +121,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _selectedNavIndex == 0
           ? PageView.builder(
+              onPageChanged: (i) {
+                debugPrint("page changed to $i");
+              },
               itemCount: box.get("myAyas").length,
               controller: _controllerAyati,
               itemBuilder: (context, index) {

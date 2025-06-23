@@ -17,8 +17,24 @@ class CustomDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(height: 80),
+            SizedBox(height: 10),
             Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.black38,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(2),
+              width: double.infinity,
+              child: BackButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Container(
+              height: 50,
               decoration: BoxDecoration(
                 color: Colors.black38,
                 borderRadius: BorderRadius.circular(10),
